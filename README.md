@@ -6,6 +6,10 @@ Author: Andrew Razuvaev <posixfan87@yandex.ru>
 # How does this script work?
 Several technologies can be used to detect multicast protocol poisoning. The basic premise is to issue fake LLMNR and mDNS requests that should not receive any legitimate answers, as the requested resources do not exist. Any host that does answer the bait requests is assumed to be performing a malicious multicast protocol poisoning attack and should be alerted on. 
 
+# Features
+- mDNS Poisoning Detection
+- LLMNR Poisoning Detection
+
 # Preparing for launch
 The Scapy library is required for the script to work.
 

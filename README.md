@@ -12,6 +12,9 @@ The Scapy library is required for the script to work.
 Installing Scapy for Debian/Ubuntu: <pre>$ sudo apt install python3-scapy</pre>
 Or you can use pip <pre>$ pip install scapy</pre>
 
+Grant the script execution rights.
+<pre>$ chmod u+x responder_honeypot.py</pre>
+
 # Usage
 <pre>$ ./responder_honeypot.py -h
 usage: ./responder_honeypot [options]

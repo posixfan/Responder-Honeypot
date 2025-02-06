@@ -40,5 +40,7 @@ Using options
 
 # Acknowledgements
 https://en.wikipedia.org/wiki/Multicast_DNS
+
 https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution
+
 https://github.com/lgandx/Responder

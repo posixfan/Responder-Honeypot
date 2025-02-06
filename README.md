@@ -27,6 +27,10 @@ options:
 # Examples
 Launch without options. Request every 10 seconds, random name, no logs recorded.
 <pre>$ sudo ./responder_honeypot.py</pre>
+![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/no_options.png)
+![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/no_options_res.png)
 
 Using options
 <pre>sudo ./responder_honeypot.py --name Im_a_victim --timeout 2 --logs honeypot.txt</pre>
+![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options.png)
+![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options_res.png)

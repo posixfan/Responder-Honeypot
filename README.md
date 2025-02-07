@@ -46,6 +46,9 @@ Using options
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options.png)
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options_res.png)
 
+# Email notification (--email)
+If you want to use an email notification, you need to configure the script.
+
 # Acknowledgements
 https://en.wikipedia.org/wiki/Multicast_DNS \
 https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution \

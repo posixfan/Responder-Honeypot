@@ -37,7 +37,9 @@ options:
 
 # Email notification (--email)
 If you want to use an email notification, you need to configure the script (see the screenshot below).
-![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/email_notification.png)
+![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/email_notification.png) \
+\
+Additional information => https://docs.python.org/3/library/smtplib.html#
 
 # Examples
 Launch without options. Request every 10 seconds, random name, no logs recorded.

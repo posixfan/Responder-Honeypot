@@ -21,7 +21,7 @@ parser.add_argument('--name', type=str,
 parser.add_argument('--timeout', type=int, default=10,
                     help='Timeout between requests (the default is 10 seconds)')
 parser.add_argument('--email', action='store_true',
-                    help='Send an email alert)')
+                    help='Send an email alert')
 parser.add_argument('--logs', type=str,
                     help='A file for saving events of detected attacks')
 args = parser.parse_args()

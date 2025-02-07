@@ -52,7 +52,7 @@ Using options
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options.png)
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options_res.png)
 
-# Acknowledgements
+# To understand better
 https://en.wikipedia.org/wiki/Multicast_DNS \
 https://en.wikipedia.org/wiki/Link-Local_Multicast_Name_Resolution \
 https://github.com/lgandx/Responder \

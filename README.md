@@ -1,5 +1,5 @@
 # Responder-Honeypot
-Script for detection LLMNR, mDNS poisoning
+Tool for detection LLMNR, mDNS poisoning
 
 Author: Andrew Razuvaev <posixfan87@yandex.ru>
 
@@ -12,7 +12,7 @@ Several technologies can be used to detect multicast protocol poisoning. The bas
 - Email notification
 
 # Preparing for launch
-The Scapy library is required for the script to work.
+The Scapy library is required for the tool to work.
 
 Installing Scapy for Debian/Ubuntu: <pre>$ sudo apt install python3-scapy</pre>
 Or you can use pip <pre>$ pip install scapy</pre>
@@ -36,11 +36,11 @@ options:
 </pre>
 
 # Email notifications (--email)
-If you want to use an email notification, you need to configure the script (see the screenshot below).
+If you want to use the email notification, you need to make edits to the source code. (see the screenshot below).
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/email_notification.png) \
 \
 Additional information => https://docs.python.org/3/library/smtplib.html# \
-The script can work without sending mail. You decide whether to configure this option or not.
+The tool can work without sending mail. You decide whether to configure this option or not.
 
 # Examples
 Launch without options. Request every 10 seconds, random name, no logs recorded, no email notifications.

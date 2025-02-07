@@ -35,6 +35,10 @@ options:
   --logs LOGS        A file for saving events of detected attacks
 </pre>
 
+# Email notification (--email)
+If you want to use an email notification, you need to configure the script (see the screenshot below).
+![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/email_notification.png)
+
 # Examples
 Launch without options. Request every 10 seconds, random name, no logs recorded.
 <pre>$ sudo ./responder_honeypot.py</pre>
@@ -45,9 +49,6 @@ Using options
 <pre>sudo ./responder_honeypot.py --name Im_a_victim --timeout 2 --logs honeypot.txt</pre>
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options.png)
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/with_options_res.png)
-
-# Email notification (--email)
-If you want to use an email notification, you need to configure the script.
 
 # Acknowledgements
 https://en.wikipedia.org/wiki/Multicast_DNS \

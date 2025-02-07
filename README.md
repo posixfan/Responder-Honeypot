@@ -35,14 +35,14 @@ options:
   --logs LOGS        A file for saving events of detected attacks
 </pre>
 
-# Email notification (--email)
+# Email notifications (--email)
 If you want to use an email notification, you need to configure the script (see the screenshot below).
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/email_notification.png) \
 \
 Additional information => https://docs.python.org/3/library/smtplib.html#
 
 # Examples
-Launch without options. Request every 10 seconds, random name, no logs recorded.
+Launch without options. Request every 10 seconds, random name, no logs recorded, no email notifications.
 <pre>$ sudo ./responder_honeypot.py</pre>
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/no_options.png)
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/no_options_res.png)

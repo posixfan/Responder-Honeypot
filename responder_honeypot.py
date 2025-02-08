@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from os import getuid
 from random import randint
 from threading import Event, Thread
-from time import time, ctime, sleep
+from time import time, sleep, strftime
 from scapy.all import *
 from scapy.layers.dns import DNS, DNSQR
 from scapy.layers.inet import IP, UDP
@@ -17,7 +17,7 @@ parser = ArgumentParser(description='Detects poisoning of the LLMNR and mDNS pro
                         usage='./responder_honeypot [options]')
 parser.add_argument('--name', type=str,
                     help='The name that LLMNR/mDNS is requesting (short name, not FQDN). '
-                         'By default, a string of 6 digits is generated.')
+                         'By default, randomly generated name.')
 parser.add_argument('--timeout', type=int, default=10,
                     help='Timeout between requests (the default is 10 seconds)')
 parser.add_argument('--email', action='store_true',
@@ -49,12 +49,23 @@ def send_email(line):
         server.sendmail(login, email, mime.as_string())
         print('[+] An email has been sent.')
     except Exception as error:
-        print(f'[-] Error sending an email: {error}')
+        print(f'\033[31m[!]\033[0m Error sending an email: {error}')
 
 def generate_random_name():
-    return f'{randint(100000, 999999)}'
+    characters = string.ascii_letters + string.digits
+    random_string = ''.join(random.choice(characters) for _ in range(10))
+    return f'WIN-{random_string}'
+
+def timer(start_time):
+    execution_time = int(time.time() - start_time)
+    hours = execution_time // 3600
+    minutes = (execution_time % 3600) // 60
+    seconds = execution_time % 60
+    return f'{hours:02}:{minutes:02}:{seconds:02}'
 
 def send_queries():
+    start_time = time.time()
+    packet_count = 0
     while not stop_event.is_set():
         mdns_query = (Ether(dst='01:00:5e:00:00:fb') / IP(dst='224.0.0.251') /
                       UDP(dport=5353) / DNS(qd=DNSQR(qname=f'{random_name}.local',
@@ -66,15 +77,17 @@ def send_queries():
                        DNSQR(qname=random_name, qtype='A', qclass='IN'))
         sendp(llmnr_query, verbose=False)
 
-        print(f'\n[-->] [{ctime()}] Sent query for random name: {random_name}')
+        packet_count += 2
+        print(f'\033[32m[+]\033[0m Program execution time: {timer(start_time)} | '
+              f'Sending requests: {packet_count} packets', end='\r')
         sleep(args.timeout)
 
 def handle_llmnr_packet(packet):
     if packet.haslayer(LLMNRResponse):
         if random_name in packet[LLMNRResponse].an.rrname.decode():
-            line = (f'[!] [{ctime()}] [LLMNR] Spoofing detected! '
-                    f'IP {packet[IP].src}, responded to the random name request: '
-                    f'{packet[LLMNRResponse].an.rrname.decode()}')
+            line = (f'\033[31m[!]\033[0m [{strftime("%d/%m/%Y %H:%M:%S")}] LLMNR Spoofing detected! '
+                f'Answer sent from {packet[IP].src} for name '
+                f'{packet[LLMNRResponse].an.rrname.decode()}')
             print(line)
 
             if args.email:
@@ -87,8 +100,8 @@ def handle_mdns_packet(packet):
     try:
         if packet.haslayer(DNS) and packet[DNS].qr == 1:
             if hasattr(packet[DNS], 'an') and random_name in packet[DNS].an.rrname.decode():
-                line = (f'[!] [{ctime()}] [mDNS] Spoofing detected! '
-                        f'IP {packet[IP].src}, responded to the random name request: '
+                line = (f'\033[31m[!]\033[0m [{strftime("%d/%m/%Y %H:%M:%S")}] mDNS Spoofing detected! '
+                        f'Answer sent from {packet[IP].src} for name '
                         f'{packet[DNS].an.rrname.decode()}')
                 print(line)
 
@@ -140,11 +153,11 @@ def main():
         while query_thread.is_alive() and sniff_thread.is_alive():
             time.sleep(1)
     except KeyboardInterrupt:
-        print('\n[!] Detected Ctrl+C! Stopping the script...')
+        print('\n\033[33m[!]\033[0m Detected Ctrl+C! Stopping the script...')
         stop_event.set()
         query_thread.join(timeout=1)
         sniff_thread.join(timeout=1)
-        print('[+] Script stopped gracefully.')
+        print('\033[32m[+]\033[0m Script stopped gracefully.')
     finally:
         if query_thread.is_alive():
             query_thread.join(timeout=1)

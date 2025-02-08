@@ -36,7 +36,7 @@ options:
 </pre>
 
 # Email notifications (--email)
-If you want to use the email notification, you need to make edits to the source code. (see the screenshot below).
+If you want to use the email notification, you need to make edits to the source code. (see the screenshot below). \
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/email_notification.png) \
 \
 Additional information => https://docs.python.org/3/library/smtplib.html# \

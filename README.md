@@ -22,6 +22,21 @@ Install the additional libpcap library for Debian/Ubuntu.
 $ sudo apt install libpcap0.8
 </pre>
 
+# New versions of Ubuntu and Debian use VENV
+What is VENV => https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/
+
+Quick Start Guide
+<pre>
+~/Responder-Honeypot$ sudo apt install python3-pip
+~/Responder-Honeypot$ sudo apt install python3-venv
+~/Responder-Honeypot$ sudo apt install libpcap0.8
+~/Responder-Honeypot$ python3 -m venv venv 
+~/Responder-Honeypot$ source venv/bin/activate
+~/Responder-Honeypot$ pip install -r requirements.txt
+~/Responder-Honeypot$ venv/bin/python3 honeypot.py -h
+~/Responder-Honeypot$ deactivate
+</pre>
+
 # Usage
 <pre>
 $ ./responder_honeypot.py -h

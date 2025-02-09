@@ -1,12 +1,12 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 import smtplib as smtp
 from email.mime.text import MIMEText
 from email.header import Header
 from argparse import ArgumentParser
 from os import getuid
-from random import randint
 from threading import Event, Thread
 from time import time, sleep, strftime
+from requests import post
 from scapy.all import *
 from scapy.layers.dns import DNS, DNSQR
 from scapy.layers.inet import IP, UDP
@@ -21,7 +21,9 @@ parser.add_argument('--name', type=str,
 parser.add_argument('--timeout', type=int, default=10,
                     help='Timeout between requests (the default is 10 seconds)')
 parser.add_argument('--email', action='store_true',
-                    help='Send an email alert')
+                    help='Send email notifications')
+parser.add_argument('--telegram', action='store_true',
+                    help='Send Telegram notifications')
 parser.add_argument('--logs', type=str,
                     help='A file for saving events of detected attacks')
 args = parser.parse_args()
@@ -47,9 +49,19 @@ def send_email(line):
         mime['Subject'] = Header(subject, 'utf-8')
 
         server.sendmail(login, email, mime.as_string())
-        print('[+] An email has been sent.')
     except Exception as error:
         print(f'\033[31m[!]\033[0m Error sending an email: {error}')
+
+def send_telegram(line):
+    api_token = ''
+    hook_url = f'https://api.telegram.org/bot{api_token}/sendMessage'
+    CHAT_ID = ''
+    msg_data = {}
+    msg_data['chat_id'] = CHAT_ID
+    msg_data['text'] = line
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+
+    post(hook_url, headers=headers, data=json.dumps(msg_data, ensure_ascii=False))
 
 def generate_random_name():
     characters = string.ascii_letters + string.digits
@@ -83,31 +95,36 @@ def send_queries():
         sleep(args.timeout)
 
 def handle_llmnr_packet(packet):
-    if packet.haslayer(LLMNRResponse):
-        if random_name in packet[LLMNRResponse].an.rrname.decode():
-            line = (f'\033[31m[!]\033[0m [{strftime("%d/%m/%Y %H:%M:%S")}] LLMNR Spoofing detected! '
-                f'Answer sent from {packet[IP].src} for name '
-                f'{packet[LLMNRResponse].an.rrname.decode()}')
-            print(line)
+    try:
+        if packet.haslayer(LLMNRResponse):
+            if random_name in packet[LLMNRResponse].an.rrname.decode():
+                line = (f'[{strftime("%d/%m/%Y %H:%M:%S")}] LLMNR Spoofing detected! '
+                    f'Answer sent from {packet[IP].src} for name '
+                    f'{packet[LLMNRResponse].an.rrname.decode()}')
+                print('\033[31m[!]\033[0m ' + line)
 
-            if args.email:
-                send_email(line)
-
-            if args.logs:
-                log_to_file(line)
+                if args.email:
+                    send_email(line)
+                if args.telegram:
+                    send_telegram(line)
+                if args.logs:
+                    log_to_file(line)
+    except:
+        return
 
 def handle_mdns_packet(packet):
     try:
         if packet.haslayer(DNS) and packet[DNS].qr == 1:
             if hasattr(packet[DNS], 'an') and random_name in packet[DNS].an.rrname.decode():
-                line = (f'\033[31m[!]\033[0m [{strftime("%d/%m/%Y %H:%M:%S")}] mDNS Spoofing detected! '
+                line = (f'[{strftime("%d/%m/%Y %H:%M:%S")}] mDNS Spoofing detected! '
                         f'Answer sent from {packet[IP].src} for name '
                         f'{packet[DNS].an.rrname.decode()}')
-                print(line)
+                print('\033[31m[!]\033[0m ' + line)
 
                 if args.email:
                     send_email(line)
-
+                if args.telegram:
+                    send_telegram(line)
                 if args.logs:
                     log_to_file(line)
     except AttributeError:
@@ -125,7 +142,7 @@ def main():
     global random_name
 
     if not is_running_as_root():
-        print('Root rights are required')
+        print('\033[31m[-]\033[0m Root rights are required')
         return
 
     if args.logs:
@@ -133,7 +150,7 @@ def main():
             with open(args.logs, 'a'):
                 pass
         except FileNotFoundError:
-            print(f'No such file or directory: {args.logs}')
+            print(f'\033[31m[-]\033[0m No such file or directory: {args.logs}')
             return
 
     if not args.name:

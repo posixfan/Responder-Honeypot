@@ -39,7 +39,7 @@ Quick Start Guide
 
 # Usage
 <pre>
-$ ./responder_honeypot.py -h
+$ venv/bin/python3 honeypot.py -h
 usage: ./responder_honeypot [options]
 
 Detects poisoning of the LLMNR and mDNS protocols.
@@ -48,7 +48,8 @@ options:
   -h, --help         show this help message and exit
   --name NAME        The name that LLMNR/mDNS is requesting (short name, not FQDN). By default, randomly generated name.
   --timeout TIMEOUT  Timeout between requests (the default is 10 seconds)
-  --email            Send an email alert
+  --email            Send email notifications
+  --telegram         Send Telegram notifications
   --logs LOGS        A file for saving events of detected attacks
 </pre>
 

@@ -10,15 +10,17 @@ Several technologies can be used to detect multicast protocol poisoning. The bas
 - mDNS Poisoning Detection
 - LLMNR Poisoning Detection
 - Email notification
+- Telegram notifications
 
 # Preparing for launch
-The Scapy library is required for the tool to work.
-
-Installing Scapy for Debian/Ubuntu: <pre>$ sudo apt install python3-scapy</pre>
-Or you can use pip <pre>$ pip install scapy</pre>
-
-Grant the script execution rights.
-<pre>$ chmod u+x responder_honeypot.py</pre>
+The following command installs packages in bulk according to the configuration file requirements.txt. In some environments, use pip3 instead of pip.
+<pre>
+$ pip install -r requirements.txt
+</pre>
+Install the additional libpcap library for Debian/Ubuntu.
+<pre>
+$ sudo apt install libpcap0.8
+</pre>
 
 # Usage
 <pre>

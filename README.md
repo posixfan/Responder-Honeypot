@@ -60,6 +60,13 @@ If you want to use the email notification, you need to make edits to the source 
 Additional information => https://docs.python.org/3/library/smtplib.html# \
 The tool can work without sending mail. You decide whether to configure this option or not.
 
+# Telegram notifications (--telegram)
+If you want to use the Telegram notification, you need to edit the 'api_token' and 'CHAT_ID' variables. (see the screenshot below). \
+![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/email_notification.png) \
+\
+How to create a telegram bot => https://t.me/BotFather \
+The tool can work without Telegram. You decide whether to configure this option or not.
+
 # Examples
 Launch without options. Request every 10 seconds, random name, no logs recorded, no email notifications.
 <pre>$ sudo ./responder_honeypot.py</pre>

@@ -69,7 +69,7 @@ How to create a telegram bot => https://t.me/BotFather \
 The tool can work without Telegram. You decide whether to configure this option or not.
 
 # Examples
-Launch without options. Request every 10 seconds, random name, no logs recorded, no email notifications.
+Launch without options. Request every 10 seconds, random name, no logs recorded, no email notifications, no telegram notifications.
 <pre>$ sudo ./responder_honeypot.py</pre>
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/no_options.png)
 ![alt text](https://github.com/posixfan/Responder-Honeypot/blob/main/img/no_options_res.png)

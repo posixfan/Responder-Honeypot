@@ -33,7 +33,7 @@ Quick Start Guide
 ~/Responder-Honeypot$ python3 -m venv venv 
 ~/Responder-Honeypot$ source venv/bin/activate
 ~/Responder-Honeypot$ pip install -r requirements.txt
-~/Responder-Honeypot$ venv/bin/python3 honeypot.py -h
+~/Responder-Honeypot$ venv/bin/python3 responder_honeypot.py -h
 ~/Responder-Honeypot$ deactivate
 </pre>
 

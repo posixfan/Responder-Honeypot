@@ -127,7 +127,7 @@ def handle_mdns_packet(packet):
                     send_telegram(line)
                 if args.logs:
                     log_to_file(line)
-    except AttributeError:
+    except:
         return
 
 def handle_packet(packet):

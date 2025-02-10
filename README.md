@@ -39,7 +39,7 @@ Quick Start Guide
 
 # Usage
 <pre>
-$ venv/bin/python3 honeypot.py -h
+$ venv/bin/python3 responder_honeypot -h
 usage: ./responder_honeypot [options]
 
 Detects poisoning of the LLMNR and mDNS protocols.

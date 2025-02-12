@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# https://github.com/posixfan/Responder-Honeypot
 import smtplib as smtp
 from email.mime.text import MIMEText
 from email.header import Header

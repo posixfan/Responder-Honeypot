@@ -92,7 +92,7 @@ Using options
 ## Contributing
 Feel free to contribute to this project by opening issues or submitting pull requests. Any improvements or suggestions are welcome!
 
-# Author
+### Author
 Andrew Razuvaev - [GitHub](https://github.com/posixfan) | <posixfan87@yandex.ru>
 
 ## To understand better
